@@ -10,6 +10,8 @@ class Snake:
     def __init__(self):
         self.snakes = []
         self.create_snake()
+        self.head = self.snakes[0]
+        
 
     def create_snake(self):
         for pos in START_POSITIONS:
@@ -20,29 +22,26 @@ class Snake:
             new_x = self.snakes[seg_num-1].xcor()
             new_y = self.snakes[seg_num-1].ycor()
             self.snakes[seg_num].goto(new_x, new_y)
-        self.snakes[0].forward(15)
-
-    def head(self):
-        return self.snakes[0]
+        self.head.forward(15)
 
     def up(self):
-        if self.snakes[0].heading() != DOWN:
-            self.snakes[0].setheading(UP)
+        if self.head.heading() != DOWN:
+            self.head.setheading(UP)
             self.move_snake()
 
     def down(self):
-        if self.snakes[0].heading() != UP:
-            self.snakes[0].setheading(DOWN)
+        if self.head.heading() != UP:
+            self.head.setheading(DOWN)
             self.move_snake()
 
     def left(self):
-        if self.snakes[0].heading() != RIGHT:
-            self.snakes[0].setheading(LEFT)
+        if self.head.heading() != RIGHT:
+            self.head.setheading(LEFT)
             self.move_snake()
 
     def right(self):
-        if self.snakes[0].heading() != LEFT:
-            self.snakes[0].setheading(RIGHT)
+        if self.head.heading() != LEFT:
+            self.head.setheading(RIGHT)
             self.move_snake()
 
     def extend(self):
@@ -55,3 +54,10 @@ class Snake:
         snake.penup()
         snake.goto(pos)
         self.snakes.append(snake)
+
+    def reset_snake(self):
+        for seg in self.snakes:
+            seg.goto(1000,1000)
+        self.snakes.clear()
+        self.create_snake()
+        self.head = self.snakes[0]
